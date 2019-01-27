@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 
 // Vasu defined helper functions
+
+// setup user avatar
 setupAvatar = email => {
   return gravatar.url(email, {
     s: "200", // size
@@ -14,6 +16,7 @@ setupAvatar = email => {
   });
 };
 
+// set up user
 setupUser = (name, email, avatar, password) => {
   return new User({
     name: name,
@@ -23,6 +26,7 @@ setupUser = (name, email, avatar, password) => {
   });
 };
 
+// set up JWT payload
 createPayload = (id, name, avatar) => {
   return {
     id: id,
