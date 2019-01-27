@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const User = require("../../models/User");
+var User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 // @route   GET api/users/test
