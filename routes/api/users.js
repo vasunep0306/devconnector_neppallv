@@ -2,6 +2,7 @@ const router = require("express").Router();
 var User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
@@ -62,8 +63,14 @@ router.post("/login", (req, res) => {
     // Check the password
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        res.json({ msg: "success" });
-        // TODO: Generate JWT Token
+        // Create JWT Payload
+        const payload = {
+          id: user._id,
+          name: user.name,
+          avatar: user.avatar
+        };
+        // Sign token
+        jwt.sign();
       } else {
         res.status(400).json({ Password: "Password incorrect" });
       }
