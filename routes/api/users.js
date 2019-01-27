@@ -23,6 +23,14 @@ setupUser = (name, email, avatar, password) => {
   });
 };
 
+createPayload = (id, name, avatar) => {
+  return {
+    id: id,
+    name: name,
+    avatar: avatar
+  };
+};
+
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
@@ -80,11 +88,7 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // Create JWT Payload
-        const payload = {
-          id: user._id,
-          name: user.name,
-          avatar: user.avatar
-        };
+        const payload = createPayload(user._id, user.name, user.avatar);
         // Sign token
         jwt.sign(
           payload,
