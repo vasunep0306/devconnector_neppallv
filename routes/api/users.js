@@ -55,6 +55,11 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   // find the user by the email
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ nouser: "There is no user" });
+    }
+  });
 });
 
 module.exports = router;
