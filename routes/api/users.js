@@ -67,6 +67,8 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         res.json({ msg: "success" });
         // TODO: Generate JWT Token
+      } else {
+        res.status(400).json({ wrongpassword: "This is not a valid password" });
       }
     });
   });
