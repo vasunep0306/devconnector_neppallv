@@ -61,6 +61,14 @@ router.post("/login", (req, res) => {
         .status(404)
         .json({ email: "There is no user with that given email" });
     }
+
+    // Check the password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        res.json({ msg: "success" });
+        // TODO: Generate JWT Token
+      }
+    });
   });
 });
 
