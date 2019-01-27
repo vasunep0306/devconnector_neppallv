@@ -6,6 +6,22 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 
 // Vasu defined helper functions
+setupAvatar = email => {
+  return gravatar.url(email, {
+    s: "200", // size
+    r: "r", // rating
+    d: "404" // default picture
+  });
+};
+
+setupUser = (name, email, avatar, password) => {
+  return new User({
+    name: name,
+    email: email,
+    avatar,
+    password: password
+  });
+};
 
 // @route   GET api/users/test
 // @desc    Tests users route
@@ -24,17 +40,13 @@ router.post("/register", (req, res) => {
         .status(400)
         .json({ email: "The user with the given email already exists" });
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: "200", // size
-        r: "r", // rating
-        d: "404" // default picture
-      });
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
+      const avatar = setupAvatar(req.body.email);
+      const newUser = setupUser(
+        req.body.name,
+        req.body.email,
         avatar,
-        password: req.body.password
-      });
+        req.body.password
+      );
 
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
