@@ -4,7 +4,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-
+const passport = require("passport");
 // Vasu defined helper functions
 
 // setup user avatar
@@ -99,7 +99,7 @@ router.post("/login", (req, res) => {
           keys.secretOrKey,
           { expiresIn: 3600 },
           (err, token) => {
-            res.json({ success: true, token: "Bearer: " + token });
+            res.json({ success: true, token: "Bearer " + token });
           }
         );
       } else {
@@ -108,5 +108,16 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+// @route   GET api/users/current
+// @desc    Return Current User
+// @access  Private
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({ msg: "success" });
+  }
+);
 
 module.exports = router;
