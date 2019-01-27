@@ -71,7 +71,14 @@ router.post("/login", (req, res) => {
           avatar: user.avatar
         };
         // Sign token
-        jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 });
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({ success: true, token: "Bearer: " + token });
+          }
+        );
       } else {
         res.status(400).json({ Password: "Password incorrect" });
       }
