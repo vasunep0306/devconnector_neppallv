@@ -4,6 +4,9 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
+
+// Vasu defined helper functions
+
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
