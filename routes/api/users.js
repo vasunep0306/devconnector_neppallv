@@ -3,6 +3,7 @@ var User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
@@ -70,7 +71,7 @@ router.post("/login", (req, res) => {
           avatar: user.avatar
         };
         // Sign token
-        jwt.sign();
+        jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 });
       } else {
         res.status(400).json({ Password: "Password incorrect" });
       }
