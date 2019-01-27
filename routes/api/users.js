@@ -47,4 +47,8 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route   GET api/users/login
+// @desc    Login a user
+// @access  Public
+
 module.exports = router;
